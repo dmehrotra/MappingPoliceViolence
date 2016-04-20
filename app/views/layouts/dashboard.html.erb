@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= content_for?(:title) ? yield(:title) : "Mapping Police Violence - Admin" %></title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>CrisisCleanup Admin Dashboard</title>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+</head>
+<body class='admin-dashboard'>
+<div class="container">
+    <%= render 'layouts/menus/dashboard_menu' %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p> 
+    <%= yield %>
+</div>
+</body>
+</html>

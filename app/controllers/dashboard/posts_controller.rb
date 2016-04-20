@@ -1,17 +1,20 @@
 module Dashboard
 	class PostsController < ApplicationController
+		include ApplicationHelper
+    	before_filter :check_admin?
 		def index
 			@posts = Post.all
-		end
+	 	end
 		def new
 			@post = Post.new
 		end
 		def create
 			@post = Post.new(post_params)
-			if @post.valid?
-				@post.save
+			
+			if @post.save
 				redirect_to dashboard_posts_path
 			else
+				binding.pry
 				redirect_to new_dashboard_post_path
 			end
 		end
@@ -24,7 +27,7 @@ module Dashboard
 
 		private	
   		def post_params
-	      params.require(:post).permit(:title)
+	      params.require(:post).permit(:title,:tag_ids => [])
 	    end
 	end
 end

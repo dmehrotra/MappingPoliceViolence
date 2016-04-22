@@ -1,0 +1,110 @@
+div
+{
+  font-family: 'Open Sans', sans-serif;
+}
+
+/*OVERALL WIDGET STYLES*/
+
+.widget-container-class
+{
+  /*background: #f25a5a;*/
+  background: #ffffff;
+  width: 30%;
+  height: 100%;
+  z-index: 1000;
+  position:fixed;
+  display: block;
+  top: 0;
+  right: 0;
+  border: 2px solid #888888;
+}
+.widget-main-bar-container
+{
+  display:absolute;
+}
+.widget-heading
+{
+  display:inline-block;
+  font-weight: 800;
+  width: 100%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  text-align: center;
+  font-size: 1.8em;
+}
+.widget-search-box
+{
+  display:block;
+  font-weight: 400;
+  width: 80%;
+  margin: 5% auto;
+  font-size: 1em;
+}
+.widget-tabs
+{
+  display:inline-block;
+  color: #555555;
+  font-weight: 400;
+  width: 50%;
+  text-align: center;
+  font-size: 1em;
+}
+
+.widget-banner
+{
+  width: 100%;
+  margin: 5% auto;
+  display: block;
+  background: #f25a5a;
+  color: #ffffff;
+  /*padding: 0 10%;*/
+  font-weight: 800;
+  font-size: 1 em;
+  line-height: 250%;
+  text-align: center;
+}
+
+.widget-line-divide
+{
+  width: 100%;
+  margin: 5% auto;
+  display: block;
+  border:none;
+  border-bottom: 2px solid #aaaaaa;
+}
+
+/*POST STYLES*/
+
+.all-posts-container
+{
+  overflow-y: scroll;
+  height:80%;
+}
+.post-container-class
+{
+  width: 80%;
+  margin: 0 auto;
+}
+.post-title
+{
+  margin: 0 auto;
+  display: block;
+  width: 100%;
+  text-align: left;
+  font-weight: 400;
+  font-size: 1.2em;
+}
+
+.post-image
+{
+  width: 100%;
+  margin: 0 auto;
+  display: block;
+}
+
+.post-tags
+{
+  display: inline;
+  color: #aaaaaa;
+  margin-right: 5px;
+}

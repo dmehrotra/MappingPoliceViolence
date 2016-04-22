@@ -27,7 +27,7 @@ module Dashboard
 
 		private	
   		def post_params
-	      params.require(:post).permit(:title,:tag_ids => [])
+	      params.require(:post).permit(:title,:image,:tag_ids => [])
 	    end
 	end
 end

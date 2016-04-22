@@ -1,12 +1,24 @@
 
-<%= simple_form_for @post, url: dashboard_posts_path do |f| %>
-	<%= f.input :title, required: true %>
-    <%= f.association :tags, :include_hidden => false, input_html: { class: 'multi-select' }  %>
-
-	<%= submit_tag 'Save', class: "btn btn-default" %>
-	<%= submit_tag 'Save and Preview', :name => 'preview', class: "btn btn-default" %>
-	<% if @edit %>
-		<%= link_to "delete", {:controller => :posts, :action => 'destroy', :id => @post.id }, :method => :delete, class: "btn btn-danger" %>
-	<%end%>
+<%= simple_form_for @post, url: dashboard_posts_path, remote: true do |f| %>
+	
+		<div class="form-group">
+			<%= f.input :title, required: true %>
+		</end>
+		<div class="form-group">
+			 <%= f.file_field :image, id: 'js-upload-files' %>
+			 <h4>Or drag and drop files below</h4>
+			<div class="upload-drop-zone" id="drop-zone">
+			Just drag and drop files here
+			</div>
+		</div>
+		<div class="form-group">
+	    	<%= f.association :tags, :include_hidden => false, input_html: { class: 'multi-select' }  %>
+	   	</div>
+		<%= submit_tag 'Save', class: "btn btn-sm btn-primary", id:"js-upload-submit" %>
+		
+		<% if @edit %>
+			<%= link_to "delete", {:controller => :posts, :action => 'destroy', :id => @post.id }, :method => :delete, class: "btn btn-danger" %>
+		<%end%>
 
 <%end%>
+

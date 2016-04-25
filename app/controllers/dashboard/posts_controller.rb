@@ -10,11 +10,9 @@ module Dashboard
 		end
 		def create
 			@post = Post.new(post_params)
-			
 			if @post.save
 				redirect_to dashboard_posts_path
 			else
-				binding.pry
 				redirect_to new_dashboard_post_path
 			end
 		end

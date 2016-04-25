@@ -3,6 +3,7 @@ module Dashboard
 		def index
 		end
 		def show
+			@posts = Tag.find(params[:id]).posts
 		end
 		def new
 			@tag = Tag.new

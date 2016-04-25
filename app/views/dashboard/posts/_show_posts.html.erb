@@ -1,0 +1,22 @@
+<div class="row " id="card-container">
+	<% @posts.each do |p| %>
+		<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 card">
+			<div class="card-wrapper">
+
+				 <div class="title "><%= p.title %></div>
+				 <div class="line"></div>
+				<% if p.image%>
+					<div class="media ">
+						<img src="<%= p.image_url %>" alt="">
+					</div>
+				<% end %>
+				 <div class="line"></div>
+				 <div class="categories"><span class='bold'>Tags: </span>
+				 	<% p.tags.each do |tag| %>
+				 	  <a href="<%=dashboard_tag_path(tag.id)%>"><%=tag.name%></a> | 
+				 	<%end%>
+				 </div>
+			</div>
+		</div>
+	<% end %>
+</div>

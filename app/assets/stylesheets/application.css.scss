@@ -18,3 +18,15 @@
 @import "bourbon";
 @import "vendor/multiselect";
 @import "vendor/dragdrop";
+@import "card";
+#preview{
+	max-height:400px;
+	max-width:400px;
+}
+.line{
+	width:100%;
+    margin:7px 0px;
+    height:1px;
+    background: #000;
+    
+}

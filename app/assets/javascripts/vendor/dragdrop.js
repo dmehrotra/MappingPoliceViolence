@@ -1,18 +1,54 @@
+var file
 $(document).ready(function(){
+    
     'use strict';
     var dropZone = document.getElementById('drop-zone');
     var uploadForm = document.getElementById('new_post');
 
     var startUpload = function(files) {
-        console.log(files);
-        debugger;
+        file=files
+        
+        if (file != undefined) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#drop-zone").html('<img id="preview" src="#" alt="" />')
+                $('#preview').attr('src', e.target.result);
+                
+            }
+            reader.readAsDataURL(file[0]);
+        }
     }
 
     uploadForm.addEventListener('submit', function(e) {
-        var uploadFiles = document.getElementById('js-upload-files').files;
         e.preventDefault()
+        e.stopImmediatePropagation();
+        var $form = $(this),
+                formData = new FormData(),
+                params   = $form.serializeArray()
+        if (file != undefined){
+             formData.append('post[image]', file[0]);
+        }else{
+             formData.append('post[image]', $("#js-upload-files")[0].files[0]);
+        }
+       
+        $.each(params, function(i, val) {
+            formData.append(val.name, val.value);        
+        });
 
-        startUpload(uploadFiles)
+        $.ajax({
+            url: $form.attr('action'),
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function(result) {
+                $("#alert-modal .modal-title").html("Thanks")
+                $("#alert-modal .modal-body").html("<a href ='/dashboard/posts'>See all posts here</a>")
+                $("#alert-modal").modal()
+            }
+        });
+        return false;  
     })
 
     dropZone.ondrop = function(e) {

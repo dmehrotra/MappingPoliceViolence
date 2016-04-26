@@ -109,3 +109,16 @@ div
   color: #aaaaaa;
   margin-right: 5px;
 }
+
+/*******************
+MESSING AROUND FOR THE AUTOCOMPLETE
+*******************/
+.ui-autocomplete{
+  z-index: 1001;
+}
+
+.ui-state-focus {
+  color: #f25a5a;
+  background: #aaaaaa;
+  border: none;
+}

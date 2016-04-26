@@ -1,9 +1,11 @@
-var availableTags =  [
-	"potato",
-	"banana",
-	"watermelon",
-	"syrup"
-]
+var availableTags = [
+	"policeKillings",
+	"trend",
+	"likelihood",
+	"location",
+	"cities"
+];
+//can this be recieved by an api call ?
 
 var JSONData =
 {
@@ -15,7 +17,7 @@ var JSONData =
 		  "title": "Police are killing black people at persistently high rates.",
 		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/	57114501b654f9ca26514ef6/1460749577385/PoliceKillingsTrendline.png?format=1000w",
 		  "tags": [
-		    "police killings",
+		    "policeKillings",
 		    "trend"
 		  ],
 		  "questions" : [
@@ -28,7 +30,7 @@ var JSONData =
 		  "title": "Black people are most likely to be killed by police.",
 		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/5695519969492ee091ce55a1/1452626355687/blackpeoplemorelikelytobekilled.png?format=1000w",
 		  "tags": [
-		    "police killings",
+		    "policeKillings",
 		    "likelihood"
 		  ],
 		  "questions" : [
@@ -41,7 +43,7 @@ var JSONData =
 		  "title": "Where you live matters.",
 		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/570e8e0c356fb0af9cde3faf/1460571675358/?format=1000w",
 		  "tags": [
-		    "police killings",
+		    "policeKillings",
 		    "location",
 				"cities"
 		  ],
@@ -55,7 +57,7 @@ var JSONData =
 		  "title": "Where you live matters.",
 		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/570e8e0c356fb0af9cde3faf/1460571675358/?format=1000w",
 		  "tags": [
-		    "police killings",
+		    "policeKillings",
 		    "location",
 				"cities"
 		  ],
@@ -69,7 +71,7 @@ var JSONData =
 		  "title": "Where you live matters.",
 		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/570e8e0c356fb0af9cde3faf/1460571675358/?format=1000w",
 		  "tags": [
-		    "police killings",
+		    "policeKillings",
 		    "location",
 				"cities"
 		  ],
@@ -81,13 +83,19 @@ var JSONData =
 	]
 };
 
+function filterByTag(tagName)
+{
+	var projects = $('.post-container-class').css("display","none");
+  var projects = $('.post-container-'+tagName).css("display","block");
+}
 
 //NEED TO FIX THE FONT
 var isOpen = 0;
 var widgetCreate = 0;
 widgetOnLoad();
 
-function widgetOnLoad(){
+function widgetOnLoad()
+{
 	addStyleSheet();
 	if($('.widget-container-class')[0])
 	{
@@ -97,7 +105,7 @@ function widgetOnLoad(){
 	else
 	{
 		createWidget();
-		loadJSONContent();
+		loadStartJSONContent();
 		widgetCreate = 1;
 		window.console.log('creating the widget');
 	}
@@ -108,6 +116,13 @@ function widgetOnLoad(){
 
 function addStyleSheet()
 {
+
+	var style1 = document.createElement('link');
+	style1.rel = 'stylesheet';
+	style1.type = 'text/css';
+	style1.href = chrome.extension.getURL('jquery-ui.css');
+	(document.head||document.documentElement).appendChild(style1);
+
 	var style = document.createElement('link');
 	style.rel = 'stylesheet';
 	style.type = 'text/css';
@@ -166,10 +181,13 @@ function addWidgetMainContents()
 	$(".widget-main-bar-container").append(widgetSearchBox);
 
 	$( ".widget-search-box" ).autocomplete({
-      source: availableTags
+      source: availableTags,
+			select: function( event, ui ) {
+				window.console.log('selected Tag -- ' + ui.item.value);
+				filterByTag(ui.item.value);
+			}
     });
 	// $('.widget-heading').html('MAPPING POLICE VIOLENCE');
-
 
 }
 
@@ -202,7 +220,8 @@ function toggleWidget()
 LOAD JSON FILE
 *********************************************************/
 
-function loadJSONContent(){
+function loadStartJSONContent()
+{
 	window.console.log('loading the json file');
 	//console.log(JSONData);
 
@@ -234,9 +253,17 @@ function loadJSONContent(){
 		{
 			var postTag = $("<h6/>");
 			postTag.attr('class','post-tags');
+
 			//window.console.log(JSONData.data[i].tags[j]);
 			$(postContainerReferId).append(postTag);
+
 			postTag.html(JSONData.data[i].tags[j]);
+			postTag.data("tagTag", JSONData.data[i].tags[j]);
+			postTag.click(function(){
+				filterByTag(this.innerHTML);
+			});
+			var tagBasedClassName = 'post-container-'+JSONData.data[i].tags[j];
+			$(postContainerReferId).addClass(tagBasedClassName);
 		}
 
 		var postImage = $("<img/>");

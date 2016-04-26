@@ -42,10 +42,11 @@ div
 }
 .widget-tabs
 {
+  border-left: 2px solid black;
   display:inline-block;
   color: #555555;
   font-weight: 400;
-  width: 50%;
+  width: 45%;
   text-align: center;
   font-size: 1em;
 }

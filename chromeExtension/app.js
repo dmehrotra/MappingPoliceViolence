@@ -1,3 +1,10 @@
+var availableTags =  [
+	"potato",
+	"banana",
+	"watermelon",
+	"syrup"
+]
+
 var JSONData =
 {
 	"banner": "Police killed at least 346 black people in the U.S. in 2015.",
@@ -90,12 +97,13 @@ function widgetOnLoad(){
 	else
 	{
 		createWidget();
+		loadJSONContent();
 		widgetCreate = 1;
 		window.console.log('creating the widget');
 	}
 	//test();
 	//LOAD THE JSON
-	loadJSONContent();
+
 }
 
 function addStyleSheet()
@@ -156,6 +164,10 @@ function addWidgetMainContents()
 	widgetSearchBox.attr('class','widget-search-box');
 	widgetSearchBox.attr('placeholder','Search topics or tags...');
 	$(".widget-main-bar-container").append(widgetSearchBox);
+
+	$( ".widget-search-box" ).autocomplete({
+      source: availableTags
+    });
 	// $('.widget-heading').html('MAPPING POLICE VIOLENCE');
 
 
@@ -192,14 +204,14 @@ LOAD JSON FILE
 
 function loadJSONContent(){
 	window.console.log('loading the json file');
-	console.log(JSONData);
+	//console.log(JSONData);
 
 	var widgetBanner = $("<div/>");
 	widgetBanner.attr('class','widget-banner');
 	$(".widget-main-bar-container").append(widgetBanner);
 	$('.widget-banner').html(JSONData.banner);
 
-	var allPostsContainer = $("<div/>");
+	var allPostsContainer = $("<section/>");
 	allPostsContainer.attr('class','all-posts-container');
 	$(".widget-container-class").append(allPostsContainer);
 
@@ -222,7 +234,7 @@ function loadJSONContent(){
 		{
 			var postTag = $("<h6/>");
 			postTag.attr('class','post-tags');
-			window.console.log(JSONData.data[i].tags[j]);
+			//window.console.log(JSONData.data[i].tags[j]);
 			$(postContainerReferId).append(postTag);
 			postTag.html(JSONData.data[i].tags[j]);
 		}

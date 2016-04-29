@@ -1,9 +1,9 @@
 var file
 $(document).ready(function(){
-    
+    console.log('yo');
     'use strict';
     var dropZone = document.getElementById('drop-zone');
-    var uploadForm = document.getElementById('new_post');
+    var uploadForm = document.getElementById('postForm');
 
     var startUpload = function(files) {
         file=files
@@ -46,6 +46,10 @@ $(document).ready(function(){
                 $("#alert-modal .modal-title").html("Thanks")
                 $("#alert-modal .modal-body").html("<a href ='/dashboard/posts'>See all posts here</a>")
                 $("#alert-modal").modal()
+                $('form')[0].reset();
+                file = "";
+                debugger;
+                $('#preview').attr('src',"");
             }
         });
         return false;  

@@ -13,9 +13,11 @@
  *= require_tree .
  *= require_self
  */
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "bourbon";
+@import "vendor/styles";
 @import "vendor/multiselect";
 @import "vendor/dragdrop";
 @import "card";

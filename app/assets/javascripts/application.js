@@ -18,7 +18,3 @@
 //= require_tree ./vendor
 
 //= require_tree .
-$(document).ready(function(){
-	  $('.multi-select').multiselect({enableFiltering: true});
-
-});

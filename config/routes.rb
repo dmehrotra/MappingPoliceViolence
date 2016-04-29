@@ -7,5 +7,8 @@ Rails.application.routes.draw do
     resources :posts, only: [:index, :new, :edit, :create, :update, :destroy]
     resources :tags, only:[:index,:new,:create,:edit,:show,:update,:destroy]
   end
+ 
+  get "/api/posts" => 'api/posts#all', as:"api"
+ 
 
 end

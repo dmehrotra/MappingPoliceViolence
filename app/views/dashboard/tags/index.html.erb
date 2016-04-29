@@ -1,0 +1,32 @@
+<div class="container">
+<table class="categories-table editable-table table table-striped table-bordered no-footer">
+  <thead>
+    <tr class='category-table-header'>
+      <th class="table-header category-name">Name</th>
+      <th class="table-header category-name">Post Count</th>
+      <th class="table-header delete">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @tags.each_with_index do |c, i| %>
+    <tr class="category-row-<%=i%>" id="<%=c.id%>">
+      <td
+        ><span href='#' data-resource='categories' data-type="text" data-editable='name'><%= c.name %></span
+        ><span class='toggle-edit'>+</span>
+      </td>
+      <td><%= c.posts.count %></td>
+      <td><%= button_to "delete", {:controller => :tags, :action => 'destroy', :id => c.id }, :method => :delete, class: "btn btn-danger btn-sm" %></td>
+    </tr>
+
+  <%end%>
+  </tbody>
+</table>
+
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>Add New Tag</strong> <small></small>
+		</div>
+	<div class="panel-body">
+		<%= render 'dashboard/tags/tag_form' %>
+	</div>
+</div>

@@ -93,6 +93,7 @@ function filterByTag(tagName)
 var isOpen = 0;
 var widgetCreate = 0;
 widgetOnLoad();
+var widgetContainer;
 
 function widgetOnLoad()
 {
@@ -122,12 +123,16 @@ function tabSwitch()
 {
 	$('#widget-all-tag').click(
 		function(){
+			$('#widget-all-tag').addClass('tab-selected');
+			$('#widget-about-tag').removeClass('tab-selected');
 			$('.all-posts-container').show();
 			$('.about-container').hide();
 		}
 	)
-	$('#widget-faq-tag').click(
+	$('#widget-about-tag').click(
 		function(){
+			$('#widget-about-tag').addClass('tab-selected');
+			$('#widget-all-tag').removeClass('tab-selected');
 			$('.all-posts-container').hide();
 			$('.about-container').show();
 		}
@@ -172,36 +177,37 @@ function addWidgetMainContents()
 	widgetMainBarContainer.attr('class','widget-main-bar-container');
 	$(".widget-container-class").append(widgetMainBarContainer);
 
-	var widgetHeading = $("<div/>");
-	widgetHeading.attr('class','widget-heading');
-	$(".widget-main-bar-container").append(widgetHeading);
-	$('.widget-heading').html('MAPPING POLICE VIOLENCE');
+	// var widgetHeading = $("<div/>");
+	// widgetHeading.attr('class','widget-heading');
+	// $(".widget-main-bar-container").append(widgetHeading);
+	// $('.widget-heading').html('MAPPING POLICE VIOLENCE');
 
-	//3 tabs
+	//2 tabs
 	window.console.log('create the tabs');
-	var widgetTabId = ['widget-all-tag','widget-faq-tag'];
-	var widgetTabHeadings = ['ALL','FAQ'];
+	var widgetTabId = ['widget-all-tag','widget-about-tag'];
+	var widgetTabHeadings = ['STATS','ABOUT'];
 
 	for(var i=0;i<2;i++)
 	{
 		var widgetTab = $("<div/>");
 		widgetTab.attr('class','widget-tabs');
 		widgetTab.attr('id',widgetTabId[i]);
-		$(".widget-main-bar-container").append(widgetTab);
+		$(widgetMainBarContainer).append(widgetTab);
 
 		var tempId = '#'  + widgetTabId[i];
 		$(tempId).html(widgetTabHeadings[i]);
 
 	}
+	$('#widget-all-tag').addClass('tab-selected');
 
 	//add the widget search box
 	window.console.log('create the search box');
 	var widgetSearchBox = $("<input/>");
 	widgetSearchBox.attr('class','widget-search-box');
 	widgetSearchBox.attr('placeholder','Search topics or tags...');
-	$(".widget-main-bar-container").append(widgetSearchBox);
+	$(widgetMainBarContainer).append(widgetSearchBox);
 
-	$( ".widget-search-box" ).keyup( function(){
+	$( widgetSearchBox ).keyup( function(){
 		var filter =  $(this).val();
 		window.console.log($(this).val());
 		$(".post-container-class").each(function(){
@@ -214,10 +220,14 @@ function addWidgetMainContents()
 		});
 	});
 
+	var widgetCoverContainer = $('<div>');
+	widgetCoverContainer.attr('class','widget-cover-container');
 
+	widgetCoverContainer.css('background-image','url(\"'+chrome.extension.getURL('assets/cover3.jpg')+'\")' );
 
-// <a href="https://twitter.com/share" class="twitter-share-button" data-via="mappingPoliceViolence">Tweet</a>
-// <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+	widgetCoverContainer.html('WE CAN </br> END POLICE </br> VIOLENCE </br> IN </br>AMERICA.');
+
+	$(widgetMainBarContainer).append(widgetCoverContainer);
 
 }
 
@@ -254,14 +264,19 @@ function loadStartJSONContent()
 	window.console.log('loading the json file');
 	//console.log(JSONData);
 
-	var widgetBanner = $("<div/>");
-	widgetBanner.attr('class','widget-banner');
-	$(".widget-main-bar-container").append(widgetBanner);
-	$('.widget-banner').html(JSONData.banner);
+	// var widgetBanner = $("<div/>");
+	// widgetBanner.attr('class','widget-banner');
+	// $(".widget-main-bar-container").append(widgetBanner);
+	// $('.widget-banner').html(JSONData.banner);
 
 	var allPostsContainer = $("<section/>");
 	allPostsContainer.attr('class','all-posts-container');
 	$(".widget-container-class").append(allPostsContainer);
+
+	var postContainerHeading = $("<div/>");
+	postContainerHeading.attr('class','post-container-heading');
+	postContainerHeading.html('NEWEST STATS');
+	$(allPostsContainer).append(postContainerHeading);
 
 	for(var i =0;i<JSONData.data.length;i++)
 	{
@@ -269,7 +284,7 @@ function loadStartJSONContent()
 		var postContainerId = 'post-container-' + i;
 		postContainer.attr('class','post-container-class');
 		postContainer.attr('id',postContainerId);
-		$(".all-posts-container").append(postContainer);
+		$(allPostsContainer).append(postContainer);
 
 
 		var postContainerReferId = '#'+ postContainerId;
@@ -344,7 +359,6 @@ function createTweet(data, postContainer)
 	tweetContainer.html('');
 	tweetContainer.attr('data-url','http://mappingpoliceviolence.org/');
 	$(postContainer).append(tweetContainer);
-
 
 
 }

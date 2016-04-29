@@ -36,19 +36,27 @@ div
 {
   display:block;
   font-weight: 400;
-  width: 80%;
-  margin: 5% auto;
+  width: 100%;
+  margin: 0 auto;
   font-size: 1em;
 }
 .widget-tabs
 {
-  border-left: 2px solid black;
   display:inline-block;
-  color: #555555;
+  color: #ffffff;
+  background: #2c2c2c;
   font-weight: 400;
-  width: 45%;
+  width: 50%;
   text-align: center;
   font-size: 1em;
+  font-weight:100;
+  padding: 4% 0;
+}
+
+.tab-selected
+{
+  font-weight:700;
+  font-size:1.1em;
 }
 
 .widget-banner
@@ -65,17 +73,37 @@ div
   text-align: center;
 }
 
+.widget-cover-container
+{
+  width: 100%;
+  /*background-image: u*/
+  background-size: cover;
+  padding: 20px 0;
+  color: #ffffff;
+  text-align: center;
+  font-size: 2em;
+  line-height: 120%;
+  font-weight:300;
+}
+
 .widget-line-divide
 {
   width: 100%;
   margin: 5% auto;
   display: block;
   border:none;
-  border-bottom: 2px solid #aaaaaa;
+  border-bottom: 1px solid #2c2c2c;
 }
 
 /*POST STYLES*/
-
+.post-container-heading
+{
+  width: 100%;
+  padding: 2% 0;
+  text-align: center;
+  border-bottom: 1px solid #2c2c2c;
+  border-top: 1px solid #2c2c2c;
+}
 .all-posts-container
 {
   overflow-y: scroll;

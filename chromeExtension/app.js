@@ -97,6 +97,7 @@ widgetOnLoad();
 function widgetOnLoad()
 {
 	addStyleSheet();
+	checkSearchBox();
 	if($('.widget-container-class')[0])
 	{
 		window.console.log('already created');
@@ -112,16 +113,36 @@ function widgetOnLoad()
 	//test();
 	//LOAD THE JSON
 
+	tabSwitch();
+
+
+}
+
+function tabSwitch()
+{
+	$('#widget-all-tag').click(
+		function(){
+			$('.all-posts-container').show();
+			$('.about-container').hide();
+		}
+	)
+	$('#widget-faq-tag').click(
+		function(){
+			$('.all-posts-container').hide();
+			$('.about-container').show();
+		}
+	)
+}
+
+function checkSearchBox()
+{
+	// $('.widget-search-box').on("keydown",function(){
+	// 	window.console.log('hello');
+	// })
 }
 
 function addStyleSheet()
 {
-
-	var style1 = document.createElement('link');
-	style1.rel = 'stylesheet';
-	style1.type = 'text/css';
-	style1.href = chrome.extension.getURL('jquery-ui.css');
-	(document.head||document.documentElement).appendChild(style1);
 
 	var style = document.createElement('link');
 	style.rel = 'stylesheet';
@@ -180,14 +201,23 @@ function addWidgetMainContents()
 	widgetSearchBox.attr('placeholder','Search topics or tags...');
 	$(".widget-main-bar-container").append(widgetSearchBox);
 
-	$( ".widget-search-box" ).autocomplete({
-      source: availableTags,
-			select: function( event, ui ) {
-				window.console.log('selected Tag -- ' + ui.item.value);
-				filterByTag(ui.item.value);
+	$( ".widget-search-box" ).keyup( function(){
+		var filter =  $(this).val();
+		window.console.log($(this).val());
+		$(".post-container-class").each(function(){
+			if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+				$(this).fadeOut();
 			}
-    });
-	// $('.widget-heading').html('MAPPING POLICE VIOLENCE');
+			else {
+				$(this).show();
+			}
+		});
+	});
+
+
+
+// <a href="https://twitter.com/share" class="twitter-share-button" data-via="mappingPoliceViolence">Tweet</a>
+// <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
 }
 
@@ -201,7 +231,6 @@ function createWidget()
 	addWidgetMainContents()
 
 }
-
 
 function toggleWidget()
 {
@@ -260,10 +289,12 @@ function loadStartJSONContent()
 			postTag.html(JSONData.data[i].tags[j]);
 			postTag.data("tagTag", JSONData.data[i].tags[j]);
 			postTag.click(function(){
+				$( ".widget-search-box" )[0].value = this.innerHTML;
 				filterByTag(this.innerHTML);
 			});
 			var tagBasedClassName = 'post-container-'+JSONData.data[i].tags[j];
 			$(postContainerReferId).addClass(tagBasedClassName);
+
 		}
 
 		var postImage = $("<img/>");
@@ -275,8 +306,19 @@ function loadStartJSONContent()
 		postEnd.attr('class','widget-line-divide');
 		$(postContainerReferId).append(postEnd);
 
+		//ADD TH TWEET BUTTON
+		createTweet(JSONData.data[i],postContainerReferId);
+
 
 	}
+
+	var aboutContainer = $("<section/>");
+	aboutContainer.attr('class','about-container');
+	$(".widget-container-class").append(aboutContainer);
+	var aboutContent = $('<div>');
+	aboutContent.attr('class','about-content');
+	aboutContainer.append(aboutContent);
+	aboutContent.html('Lorem ipsum..');
 
 
 	window.console.log('loaded the json file');
@@ -291,3 +333,29 @@ function test()
 	// window.console.log('yo machha');
 	document.getElementById('tweet-box-home-timeline').innerHTML = 'tes test test test';
 }
+
+function createTweet(data, postContainer)
+{
+	var tweetContainer = $('<a>');
+	tweetContainer.attr('href','https://twitter.com/share');
+	tweetContainer.attr('class','twitter-share-button');
+	tweetContainer.attr('data-text',data.title);
+	tweetContainer.attr('data-hashtags',data.tags.toString());
+	tweetContainer.html('');
+	tweetContainer.attr('data-url','http://mappingpoliceviolence.org/');
+	$(postContainer).append(tweetContainer);
+
+
+
+}
+
+!function(d,s,id){
+	var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+	if(!d.getElementById(id))
+	{
+		js=d.createElement(s);
+		js.id=id;
+		js.src=p+'://platform.twitter.com/widgets.js';
+		fjs.parentNode.insertBefore(js,fjs);
+	}
+}(document, 'script', 'twitter-wjs');

@@ -9,10 +9,16 @@
     "scripts": ["background.js"],
     "persistent": false
   },
+  "content_scripts": [
+    {
+      "matches": ["http://twitter.com/*", "https://twitter.com/*"],
+      "js": ["jquery-1.12.3.min.js","shortcode.js"]
+    }
+  ],
   "browser_action": {
     "default_title": "Widget for Mapping Police Violence",
     "default_icon": "favicon.ico"
   },
   "manifest_version": 2,
-  "web_accessible_resources": ["mpvstyle.css","test.json","jquery-ui.css"]
+  "web_accessible_resources": ["mpvstyle.css","test.json"]
 }

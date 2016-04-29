@@ -79,7 +79,7 @@ div
 .all-posts-container
 {
   overflow-y: scroll;
-  height:80%;
+  height:65%;
 }
 .post-container-class
 {
@@ -106,8 +106,14 @@ div
 .post-tags
 {
   display: inline;
-  color: #aaaaaa;
+  color: #bbbbbb;
   margin-right: 5px;
+  font-size: 0.75em;
+}
+.post-tags:hover
+{
+  cursor: pointer;
+  color: #888888;
 }
 
 /*******************
@@ -121,4 +127,8 @@ MESSING AROUND FOR THE AUTOCOMPLETE
   color: #f25a5a;
   background: #aaaaaa;
   border: none;
+}
+
+.about-container {
+  display: none;
 }

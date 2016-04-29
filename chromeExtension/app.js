@@ -321,8 +321,7 @@ function loadStartJSONContent()
 		postEnd.attr('class','widget-line-divide');
 		$(postContainerReferId).append(postEnd);
 
-		//ADD TH TWEET BUTTON
-		createTweet(JSONData.data[i],postContainerReferId);
+
 
 
 	}

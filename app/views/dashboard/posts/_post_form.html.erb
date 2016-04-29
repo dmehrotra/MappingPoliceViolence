@@ -1,20 +1,30 @@
 
-<%= simple_form_for @post, url: dashboard_posts_path, remote: true do |f| %>
+<%= simple_form_for @post, url: @post.id.present? ? dashboard_post_path(@post.id) : dashboard_posts_path ,:html=>{id: :postForm}, remote: true do |f| %>
 	
 		<div class="form-group">
-			<%= f.input :title, required: true %>
+			<%= f.input :title, required: true, placeholder:"Title of your infographic" %>
 		</end>
+
 		<div class="form-group">
 			 <%= f.file_field :image, id: 'js-upload-files' %>
-			 <h4>Or drag and drop files below</h4>
+			<h4>Or drag and drop files below</h4>
 			<div class="upload-drop-zone" id="drop-zone">
-			Just drag and drop files here
-			
-			
+			<% if @post.image_url.present? %>	
+              	<img id="preview" src="<%=@post.image_url%>" alt="">
+
+			<%else%>
+				Just drag and drop files here
+			<%end%>
 			</div>
 		</div>
 		<div class="form-group">
 	    	<%= f.association :tags, :include_hidden => false, input_html: { class: 'multi-select' }  %>
+	   	</div>
+	   	<div class="form-group">
+	   		<%= f.input :description, placeholder:"This is some descriptive text about the infographic you just uploaded. The more information the better.  Include links to the source and other relevant information"  %>
+	   	</div>
+	   	<div class="form-group">
+	   		<%= f.input :shortcode, placeholder:"#MPV123" %>
 	   	</div>
 		<%= submit_tag 'Save', class: "btn btn-sm btn-primary", id:"js-upload-submit" %>
 		
@@ -23,4 +33,81 @@
 		<%end%>
 
 <%end%>
+<script>
+ 	var file
+$(document).ready(function(){
+    console.log('yo');
+    'use strict';
+    var dropZone = document.getElementById('drop-zone');
+    var uploadForm = document.getElementById('postForm');
 
+    var startUpload = function(files) {
+        file=files
+        
+        if (file != undefined) {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#drop-zone").html('<img id="preview" src="#" alt="" />')
+                $('#preview').attr('src', e.target.result);
+                
+            }
+            reader.readAsDataURL(file[0]);
+        }
+    }
+
+    uploadForm.addEventListener('submit', function(e) {
+        e.preventDefault()
+        e.stopImmediatePropagation();
+        var $form = $(this),
+                formData = new FormData(),
+                params   = $form.serializeArray()
+        if (file != undefined){
+             formData.append('post[image]', file[0]);
+        }else{
+             formData.append('post[image]', $("#js-upload-files")[0].files[0]);
+        }
+       
+        $.each(params, function(i, val) {
+            formData.append(val.name, val.value);        
+        });
+
+        $.ajax({
+            url: $form.attr('action'),
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function(result) {
+                $("#alert-modal .modal-title").html("Thanks")
+                $("#alert-modal .modal-body").html("<a href ='/dashboard/posts'>See all posts here</a>")
+                $("#alert-modal").modal()
+                $('form')[0].reset();
+                file = "";
+                debugger;
+                $('#preview').attr('src',"");
+            }
+        });
+        return false;  
+    })
+
+    dropZone.ondrop = function(e) {
+        e.preventDefault();
+        this.className = 'upload-drop-zone';
+
+        startUpload(e.dataTransfer.files)
+    }
+
+    dropZone.ondragover = function() {
+        this.className = 'upload-drop-zone drop';
+        return false;
+    }
+
+    dropZone.ondragleave = function() {
+        this.className = 'upload-drop-zone';
+        return false;
+    }
+$('.multi-select').multiselect({enableFiltering: true});
+
+});
+	</script>

@@ -4,9 +4,13 @@
     <%= f.association :posts, :include_hidden => false, input_html: { class: 'multi-select' }  %>
 
 	<%= submit_tag 'Save', class: "btn btn-default" %>
-	<%= submit_tag 'Save and Preview', :name => 'preview', class: "btn btn-default" %>
+	
 	<% if @edit %>
 		<%= link_to "delete", {:controller => :posts, :action => 'destroy', :id => @post.id }, :method => :delete, class: "btn btn-danger" %>
 	<%end%>
 
 <%end%>
+<script>
+
+	$('.multi-select').multiselect({enableFiltering: true});
+</script>

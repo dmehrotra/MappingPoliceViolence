@@ -10,22 +10,37 @@ module Dashboard
 		end
 		def create
 			@post = Post.new(post_params)
+			
 			if @post.save
+				@post.assign_shortcode
 				redirect_to dashboard_posts_path
 			else
 				redirect_to new_dashboard_post_path
 			end
 		end
 		def edit
+			@post = Post.find(params[:id])
+
 		end
 		def update
+			@post = Post.find(params[:id])
+			@post.update(post_params)
+			if @post.save
+				@post.assign_shortcode
+				redirect_to dashboard_posts_path
+			else
+				redirect_to edit_dashboard_post_path(@post.id)
+			end
 		end
 		def show
 		end
-
+		def destroy
+			Post.find(params[:id]).delete
+			redirect_to dashboard_posts_path
+		end
 		private	
   		def post_params
-	      params.require(:post).permit(:title,:image,:tag_ids => [])
+	      params.require(:post).permit(:title,:description,:shortcode,:image,:tag_ids => [])
 	    end
 	end
 end

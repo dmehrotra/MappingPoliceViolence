@@ -1,6 +1,10 @@
 module Dashboard
 	class TagsController < ApplicationController
+				include ApplicationHelper
+    	before_filter :check_admin?
 		def index
+			@tags = Tag.all
+			@tag = Tag.new
 		end
 		def show
 			@posts = Tag.find(params[:id]).posts
@@ -14,14 +18,17 @@ module Dashboard
 			if @tag.save
 				redirect_to dashboard_tags_path
 			else
-				binding.pry
-				redirect_to new_dashboard_tag_path
+				redirect_to dashboard_tags_path, notice: @tag.errors
 			end
 		end
 
 		def edit
 		end
 		def update
+		end
+		def destroy
+			Tag.find(params[:id]).delete
+			redirect_to dashboard_tags_path
 		end
 		private	
   		def tag_params

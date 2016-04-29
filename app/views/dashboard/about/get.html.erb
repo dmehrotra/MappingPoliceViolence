@@ -1,0 +1,17 @@
+<div class="container">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<strong>About</strong> <small></small>
+		</div>
+	<div class="panel-body">
+		<%= simple_form_for @about, url: "/dashboard/about"  do |f| %>
+			<%= f.input :content, required: true %>
+		   
+			<%= submit_tag 'Save', class: "btn btn-default" %>
+
+
+		<%end%>
+
+	</div>
+</div>
+

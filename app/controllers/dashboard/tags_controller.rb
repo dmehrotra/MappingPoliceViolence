@@ -1,5 +1,7 @@
 module Dashboard
 	class TagsController < ApplicationController
+				include ApplicationHelper
+    	before_filter :check_admin?
 		def index
 			@tags = Tag.all
 			@tag = Tag.new

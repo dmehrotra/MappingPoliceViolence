@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   namespace :dashboard do
     resources :posts, only: [:index, :new, :edit, :create, :update, :destroy]
     resources :tags, only:[:index,:new,:create,:edit,:show,:update,:destroy]
+  	
+  	get "/about" => '/dashboard/about#get'
+  	post "/about" => '/dashboard/about#post'
+  	patch "/about" => '/dashboard/about#post'
+ 
   end
  
   get "/api/posts" => 'api/posts#all', as:"api"

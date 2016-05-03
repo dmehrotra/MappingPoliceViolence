@@ -97,6 +97,7 @@ var widgetContainer;
 
 function widgetOnLoad()
 {
+	// makeAjaxRequest();
 	addStyleSheet();
 	checkSearchBox();
 	if($('.widget-container-class')[0])
@@ -117,6 +118,19 @@ function widgetOnLoad()
 	tabSwitch();
 
 
+}
+
+function makeAjaxRequest()
+{
+		window.console.log('inside the ajax call');
+	$.ajax({
+		url:"http://localhost:3000/api/posts",
+		success: function(result){
+			window.console.log('sucsess');
+			window.console.log(result);
+			debugger;
+		}
+	});
 }
 
 function tabSwitch()
@@ -222,11 +236,11 @@ function addWidgetMainContents()
 
 	var widgetCoverContainer = $('<div>');
 	widgetCoverContainer.attr('class','widget-cover-container');
+	// widgetCoverContainer.attr('data-image-src',chrome.extension.getURL('assets/cover3.jpg'));
 
 	widgetCoverContainer.css('background-image','url(\"'+chrome.extension.getURL('assets/cover3.jpg')+'\")' );
-
 	widgetCoverContainer.html('WE CAN </br> END POLICE </br> VIOLENCE </br> IN </br>AMERICA.');
-
+	//
 	$(widgetMainBarContainer).append(widgetCoverContainer);
 
 }
@@ -261,6 +275,7 @@ LOAD JSON FILE
 
 function loadStartJSONContent()
 {
+
 	window.console.log('loading the json file');
 	//console.log(JSONData);
 
@@ -277,6 +292,8 @@ function loadStartJSONContent()
 	postContainerHeading.attr('class','post-container-heading');
 	postContainerHeading.html('NEWEST STATS');
 	$(allPostsContainer).append(postContainerHeading);
+
+
 
 	for(var i =0;i<JSONData.data.length;i++)
 	{
@@ -317,6 +334,8 @@ function loadStartJSONContent()
 		$(postContainerReferId).append(postImage);
 		postImage.attr('src',JSONData.data[i].imgUrl);
 
+		createTweet(JSONData.data[i],postContainerReferId);
+
 		var postEnd = $("<hr/>");
 		postEnd.attr('class','widget-line-divide');
 		$(postContainerReferId).append(postEnd);
@@ -353,6 +372,7 @@ function createTweet(data, postContainer)
 	var tweetContainer = $('<a>');
 	tweetContainer.attr('href','https://twitter.com/share');
 	tweetContainer.attr('class','twitter-share-button');
+	// tweetContainer.addClass('post-tweet-button');
 	tweetContainer.attr('data-text',data.title);
 	tweetContainer.attr('data-hashtags',data.tags.toString());
 	tweetContainer.html('');

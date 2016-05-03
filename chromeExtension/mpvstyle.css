@@ -86,6 +86,11 @@ div
   font-weight:300;
 }
 
+.parallax-window {
+    min-height: 400px;
+    background: transparent;
+}
+
 .widget-line-divide
 {
   width: 100%;
@@ -108,11 +113,12 @@ div
 {
   overflow-y: scroll;
   height:65%;
+  z-index: 9999;
 }
 .post-container-class
 {
   width: 80%;
-  margin: 0 auto;
+  margin: 5% auto;
 }
 .post-title
 {

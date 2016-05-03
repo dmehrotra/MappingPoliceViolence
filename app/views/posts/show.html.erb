@@ -1,0 +1,11 @@
+<meta charset="UTF-8">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@tweetercards">
+<meta name="twitter:creator" content="@tweetercards">
+<meta name="twitter:title" content="<%=@post.title%>">
+<meta name="twitter:description" content="<%=@post.title%>">
+<meta name="twitter:image" content="<%= root_url + @post.image_url%>">
+
+<h2> <%=@post.title%> </h2>
+<%= image_tag @post.image_url %>
+<%= root_url + @post.image_url %>

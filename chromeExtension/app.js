@@ -6,7 +6,7 @@ var availableTags = [
 	"cities"
 ];
 //can this be recieved by an api call ?
-
+var JSONApiData;
 var JSONData =
 {
 	"banner": "Police killed at least 346 black people in the U.S. in 2015.",
@@ -103,24 +103,6 @@ var widgetContainer;
 function widgetOnLoad()
 {
 	makeAjaxRequest();
-	addStyleSheet();
-	checkSearchBox();
-	if($('.widget-container-class')[0])
-	{
-		window.console.log('already created');
-		toggleWidget();
-	}
-	else
-	{
-		createWidget();
-		loadStartJSONContent();
-		widgetCreate = 1;
-		window.console.log('creating the widget');
-	}
-	//test();
-	//LOAD THE JSON
-
-	tabSwitch();
 
 
 }
@@ -134,7 +116,30 @@ function makeAjaxRequest()
 		success: function(result){
 			window.console.log('success');
 			window.console.log(result);
-			debugger;
+	// debugger;
+			var data = JSON.parse(result["posts"]);
+			// debugger;
+			JSONApiData = data;
+			window.console.log(data);
+
+			addStyleSheet();
+			checkSearchBox();
+			if($('.widget-container-class')[0])
+			{
+				window.console.log('already created');
+				toggleWidget();
+			}
+			else
+			{
+				createWidget();
+				loadStartJSONContent();
+				widgetCreate = 1;
+				window.console.log('creating the widget');
+			}
+			//test();
+			//LOAD THE JSON
+			tabSwitch();
+			//debugger;
 		}
 	});
 }
@@ -299,10 +304,12 @@ function loadStartJSONContent()
 	postContainerHeading.html('NEWEST STATS');
 	$(allPostsContainer).append(postContainerHeading);
 
+	window.console.log(JSONApiData);
 
 
-	for(var i =0;i<JSONData.data.length;i++)
+	for(var i =0;i<JSONApiData.length;i++)
 	{
+
 		var postContainer = $("<div/>");
 		var postContainerId = 'post-container-' + i;
 		postContainer.attr('class','post-container-class');
@@ -314,33 +321,34 @@ function loadStartJSONContent()
 		var postTitle = $("<h4/>");
 		postTitle.attr('class','post-title');
 		$(postContainerReferId).append(postTitle);
-		postTitle.html(JSONData.data[i].title);
+		postTitle.html(JSONApiData[i].title);
 
-		for(var j =0;j<JSONData.data[i].tags.length;j++)
+		for(var j =0;j<JSONApiData[i]["tags"].length;j++)
 		{
 			var postTag = $("<h6/>");
 			postTag.attr('class','post-tags');
 
-			//window.console.log(JSONData.data[i].tags[j]);
+			window.console.log(JSONApiData[i].tags.length);
 			$(postContainerReferId).append(postTag);
 
-			postTag.html(JSONData.data[i].tags[j]);
-			postTag.data("tagTag", JSONData.data[i].tags[j]);
+			postTag.html(JSONApiData[i].tags[j].name);
+			postTag.data("tagTag", JSONApiData[i].tags[j].name);
 			postTag.click(function(){
 				$( ".widget-search-box" )[0].value = this.innerHTML;
 				filterByTag(this.innerHTML);
 			});
-			var tagBasedClassName = 'post-container-'+JSONData.data[i].tags[j];
+			var tagBasedClassName = 'post-container-'+JSONApiData[i].tags[j].name;
 			$(postContainerReferId).addClass(tagBasedClassName);
+
 
 		}
 
 		var postImage = $("<img/>");
 		postImage.attr('class','post-image');
 		$(postContainerReferId).append(postImage);
-		postImage.attr('src',JSONData.data[i].imgUrl);
+		postImage.attr('src','http://mpv-admin.herokuapp.com/'+JSONApiData[i].image.url);
 
-		createTweet(JSONData.data[i],postContainerReferId);
+		createTweet(JSONApiData[i],postContainerReferId);
 
 		var postEnd = $("<hr/>");
 		postEnd.attr('class','widget-line-divide');
@@ -375,13 +383,18 @@ function test()
 
 function createTweet(data, postContainer)
 {
+
 	var tweetContainer = $('<a>');
+	var tags = [];
 	var url = "https://mpv-admin.herokuapp.com/posts/" + data.id;
 	tweetContainer.attr('href','https://twitter.com/share');
 	tweetContainer.attr('class','twitter-share-button');
 	// tweetContainer.addClass('post-tweet-button');
 	tweetContainer.attr('data-text',data.title);
-	tweetContainer.attr('data-hashtags',data.tags.toString());
+	for(var i =0;i<data.tags.length;i++){
+		tags.push(data.tags[i].name);
+	}
+	tweetContainer.attr('data-hashtags',tags.toString());
 	tweetContainer.html('');
 	tweetContainer.attr('data-url',url);
 	$(postContainer).append(tweetContainer);

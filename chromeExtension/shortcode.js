@@ -1,11 +1,31 @@
-var postTags = [
-	"#mpv1",
-	"#mpv2",
-	"#mpv3",
-	"#mpv4",
-	"#mpv5"
-];
+var postTags = [];
 //can this be recieved by an api call ?
+var JSONApiData;
+makeAjaxRequest();
+
+function makeAjaxRequest()
+{
+		window.console.log('inside the ajax call');
+	$.ajax({
+		dataType: 'json',
+		url:"https://mpv-admin.herokuapp.com/api/posts",
+		success: function(result){
+			window.console.log('success');
+			window.console.log(result);
+	// debugger;
+			var data = JSON.parse(result["posts"]);
+			// debugger;
+			JSONApiData = data;
+			getPostTagArray();
+		}
+	});
+}
+
+function getPostTagArray(){
+	for(var i =0;i<JSONApiData.length;i++){
+		postTags.push(JSONApiData[i].shortcode);
+	}
+}
 
 var JSONData =
 {
@@ -115,13 +135,13 @@ function findMatchingWords(t, s) {
 
 function insertPost(postNumber,container)
 {
-	var data = JSONData.data[postNumber];
-  window.console.log('postNumber -- ' + JSONData.data[postNumber] + ' -- conteiner -- ' + container + ' -- ' +  data.id);
+	var data = JSONApiData[postNumber];
+  window.console.log('postNumber -- ' + JSONApiData[postNumber] + ' -- conteiner -- ' + container + ' -- ' +  data.id);
   var textContainer = $('<div>');
 	var tagString = '';
 	for(var i =0;i<data.tags.length;i++)
 	{
-		tagString = tagString.concat(' #' + data.tags[i] );
+		tagString = tagString.concat(' #' + data.tags[i].name );
 	}
 	var postUrl = "https://mpv-admin.herokuapp.com/posts/" + data.id;
   textContainer.html(postUrl + tagString);

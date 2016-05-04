@@ -13,6 +13,7 @@ var JSONData =
 	"data":
 	[
 		{
+			"id":1,
 		  "description": "",
 		  "title": "Police are killing black people at persistently high rates.",
 		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/	57114501b654f9ca26514ef6/1460749577385/PoliceKillingsTrendline.png?format=1000w",
@@ -26,6 +27,7 @@ var JSONData =
 		  ]
 		},
 		{
+			"id":2,
 		  "description": "",
 		  "title": "Black people are most likely to be killed by police.",
 		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/5695519969492ee091ce55a1/1452626355687/blackpeoplemorelikelytobekilled.png?format=1000w",
@@ -39,6 +41,7 @@ var JSONData =
 		  ]
 		},
 		{
+			"id":3,
 		  "description": "",
 		  "title": "Where you live matters.",
 		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/570e8e0c356fb0af9cde3faf/1460571675358/?format=1000w",
@@ -53,6 +56,7 @@ var JSONData =
 		  ]
 		},
 		{
+			"id":4,
 		  "description": "",
 		  "title": "Where you live matters.",
 		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/570e8e0c356fb0af9cde3faf/1460571675358/?format=1000w",
@@ -67,6 +71,7 @@ var JSONData =
 		  ]
 		},
 		{
+			"id":5,
 		  "description": "",
 		  "title": "Where you live matters.",
 		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/570e8e0c356fb0af9cde3faf/1460571675358/?format=1000w",
@@ -97,7 +102,7 @@ var widgetContainer;
 
 function widgetOnLoad()
 {
-	// makeAjaxRequest();
+	makeAjaxRequest();
 	addStyleSheet();
 	checkSearchBox();
 	if($('.widget-container-class')[0])
@@ -124,9 +129,10 @@ function makeAjaxRequest()
 {
 		window.console.log('inside the ajax call');
 	$.ajax({
-		url:"http://localhost:3000/api/posts",
+		dataType: 'json',
+		url:"https://mpv-admin.herokuapp.com/api/posts",
 		success: function(result){
-			window.console.log('sucsess');
+			window.console.log('success');
 			window.console.log(result);
 			debugger;
 		}
@@ -370,13 +376,14 @@ function test()
 function createTweet(data, postContainer)
 {
 	var tweetContainer = $('<a>');
+	var url = "https://mpv-admin.herokuapp.com/posts/" + data.id;
 	tweetContainer.attr('href','https://twitter.com/share');
 	tweetContainer.attr('class','twitter-share-button');
 	// tweetContainer.addClass('post-tweet-button');
 	tweetContainer.attr('data-text',data.title);
 	tweetContainer.attr('data-hashtags',data.tags.toString());
 	tweetContainer.html('');
-	tweetContainer.attr('data-url','http://mappingpoliceviolence.org/');
+	tweetContainer.attr('data-url',url);
 	$(postContainer).append(tweetContainer);
 
 

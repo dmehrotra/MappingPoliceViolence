@@ -7,7 +7,9 @@
 <meta name="twitter:image" content="<%= root_url + @post.image_url%>">
 
 <style>
+header{text-align: center;}
  img{
+ 	width:500px;
  	max-width:100%;
  	max-height:100%;
  }
@@ -21,7 +23,7 @@
         <header class="jumbotron hero-spacer">
             <h1><%=@post.title%></h1>
             <p><%= image_tag @post.image_url %></p>
-            <p><%= @post.tags %></p>
+
             <p><%= @post.description %></p>
             <p><% if current_user.present? %>
             	<a href="/dashboard/posts/<%=@post.id%>/edit" class="btn btn-primary btn-large">Edit</a>
@@ -41,23 +43,22 @@
 
         <!-- Page Features -->
         <div class="row text-center">
-        	<% @post.tags.each do |tag| %>
-		        <% tag.posts.each do |p| %>     
-		            <% if p.id != @post.id %>
-			            <div class="col-md-3 col-sm-6 hero-feature">
-			                <div class="thumbnail">
-			                    ><%= image_tag p.image_url %>
-			                    <div class="caption">
-			                        <h3><%=@post.title%></h3>
-			                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-			                        <p>
-			                            <a href="#" class="btn btn-primary">Buy Now!</a> <a href="#" class="btn btn-default">More Info</a>
-			                        </p>
-			                    </div>
-			                </div>
-			            </div>
-	        		<%end%>
-	        	<%end%>
+        	<% @similar.each do |p| %>
+	            <div class="col-md-3 col-sm-6 hero-feature">
+	                <div class="thumbnail">
+	                    <%= image_tag p.image_url %>
+	                    <div class="caption">
+	                        <h3><%=p.title%></h3>
+	                        <p><%= p.description.present? ? p.description : "No description" %></p>
+	                        <p>
+	                        	<% if current_user.present? %>
+	                            <a href="/dashboard/posts/<%=p.id%>/edit" class="btn btn-primary">Edit</a>
+	                            <%end%>
+	                             <a href="/posts/<%=p.id%>" class="btn btn-default">See Post</a>
+	                        </p>
+	                    </div>
+	                </div>
+	            </div>
 	        <%end%>
 
         </div>

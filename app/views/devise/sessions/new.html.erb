@@ -1,5 +1,110 @@
-<h2>Log in</h2>
+<style>
+	body{
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#000000+0,44433c+100 */
+background: #000000; /* Old browsers */
+background: -moz-linear-gradient(top,  #000000 0%, #44433c 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #000000 0%,#44433c 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #000000 0%,#44433c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#44433c',GradientType=0 ); /* IE6-9 */
+color:white;
+	}
+	.form-wrap{
+		width:60%;
+		max-width:400px;
+		margin: 200px auto;
 
+	}
+	.sign-in-logo{
+		text-align:left;
+		width:100%;
+	}
+	img{
+		width:100%;
+		max-width:350px;
+	}
+	input[type="email"], input[type="password"]{
+		width: calc(100% - 22px) !important;
+		border-radius:0px  !important;
+		border:0px solid white  !important;
+	}
+	.margin-top{
+		margin-top:20px;
+	}
+	input.switch:empty{
+	margin-left: -999px;
+}
+input.switch:empty ~ label
+{
+	position: relative;
+	float: left;
+	line-height: 1.6em;
+	text-indent: 4em;
+	margin: 0.2em 0;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+input.switch:empty ~ label{
+	color:white;
+	font-weight:100;
+}
+input.switch:empty ~ label:before,
+input.switch:empty ~ label:after
+{
+	position: absolute;
+	display: block;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	content: ' ';
+	width: 3.6em;
+	background-color: #e0e0e0;
+	border-radius:17px;
+
+	-webkit-transition: all 100ms ease-in;
+	transition: all 100ms ease-in;
+}
+
+input.switch:empty ~ label:after
+{
+	width: 1.4em;
+	top: 0.1em;
+	bottom: 0.1em;
+	margin-left: 0.1em;
+	background-color: #fff;
+	border-radius: 30px;
+
+}
+input.switch:checked ~ label:before
+{
+	background-color: #bcbdbf;
+}
+
+input.switch:checked ~ label:after
+{
+	margin-left: 2em;
+	background-image: url(/images/check.png);
+	background-position: center;
+	background-repeat: no-repeat;
+}
+input.sign-in-submit{
+	margin-top:10px;
+	background:#ffffff !important;
+	color:#white !important;
+	border-radius:0px !important;
+	box-shadow:none !important;
+	border:0px solid white !important;
+	font-family: 'Open Sans' !important;;
+	text-shadow: none !important;;
+}
+
+</style>
+<div class='form-wrap'>
+	<div class="sign-in-logo">
+		<h2>Log In</h2>
+	</div>
 <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-inputs">
     <%= f.input :email, required: false, autofocus: true %>
@@ -11,5 +116,5 @@
     <%= f.button :submit, "Log in" %>
   </div>
 <% end %>
+</div>
 
-<%= render "devise/shared/links" %>

@@ -6,6 +6,81 @@
 <meta name="twitter:description" content="<%=@post.title%>">
 <meta name="twitter:image" content="<%= root_url + @post.image_url%>">
 
-<h2> <%=@post.title%> </h2>
-<%= image_tag @post.image_url %>
+<style>
+header{text-align: center;}
+ img{
+ 	width:500px;
+ 	max-width:100%;
+ 	max-height:100%;
+ }
+ .thumbnail img{
+ 	height:300px;
+ }
+</style>
+    <div class="container">
+
+        <!-- Jumbotron Header -->
+        <header class="jumbotron hero-spacer">
+            <h1><%=@post.title%></h1>
+            <p><%= image_tag @post.image_url %></p>
+
+            <p><%= @post.description %></p>
+            <p><% if current_user.present? %>
+            	<a href="/dashboard/posts/<%=@post.id%>/edit" class="btn btn-primary btn-large">Edit</a>
+                <%end%>
+            </p>
+        </header>
+
+        <hr>
+
+        <!-- Title -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h3>Similar Posts</h3>
+            </div>
+        </div>
+        <!-- /.row -->
+
+        <!-- Page Features -->
+        <div class="row text-center">
+        	<% if @similar.present? %>
+        	<% @similar.each do |p| %>
+	            <div class="col-md-3 col-sm-6 hero-feature">
+	                <div class="thumbnail">
+	                    <%= image_tag p.image_url %>
+	                    <div class="caption">
+	                        <h3><%=p.title%></h3>
+	                        <p><%= p.description.present? ? p.description : "No description" %></p>
+	                        <p>
+	                        	<% if current_user.present? %>
+	                            <a href="/dashboard/posts/<%=p.id%>/edit" class="btn btn-primary">Edit</a>
+	                            <%end%>
+	                             <a href="/posts/<%=p.id%>" class="btn btn-default">See Post</a>
+	                        </p>
+	                    </div>
+	                </div>
+	            </div>
+	        <%end%>
+	        <%end%>
+
+        </div>
+        <!-- /.row -->
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Campaign Zero 2016</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+
+
+
+
 <%= root_url + @post.image_url %>

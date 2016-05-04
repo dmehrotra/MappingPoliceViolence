@@ -43,6 +43,7 @@ header{text-align: center;}
 
         <!-- Page Features -->
         <div class="row text-center">
+        	<% if @similar.present? %>
         	<% @similar.each do |p| %>
 	            <div class="col-md-3 col-sm-6 hero-feature">
 	                <div class="thumbnail">
@@ -59,6 +60,7 @@ header{text-align: center;}
 	                    </div>
 	                </div>
 	            </div>
+	        <%end%>
 	        <%end%>
 
         </div>

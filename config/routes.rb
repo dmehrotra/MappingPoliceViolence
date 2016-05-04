@@ -17,5 +17,6 @@ Rails.application.routes.draw do
 
   # Added for public view - for twitter cards
   get "/posts/:id" => 'posts#show'
+  match '*any' => 'application#options', :via => [:options]
 
 end

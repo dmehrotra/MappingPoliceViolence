@@ -7,86 +7,6 @@ var availableTags = [
 ];
 //can this be recieved by an api call ?
 var JSONApiData;
-var JSONData =
-{
-	"banner": "Police killed at least 346 black people in the U.S. in 2015.",
-	"data":
-	[
-		{
-			"id":1,
-		  "description": "",
-		  "title": "Police are killing black people at persistently high rates.",
-		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/	57114501b654f9ca26514ef6/1460749577385/PoliceKillingsTrendline.png?format=1000w",
-		  "tags": [
-		    "policeKillings",
-		    "trend"
-		  ],
-		  "questions" : [
-		    "question 1",
-		    "question 2"
-		  ]
-		},
-		{
-			"id":2,
-		  "description": "",
-		  "title": "Black people are most likely to be killed by police.",
-		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/5695519969492ee091ce55a1/1452626355687/blackpeoplemorelikelytobekilled.png?format=1000w",
-		  "tags": [
-		    "policeKillings",
-		    "likelihood"
-		  ],
-		  "questions" : [
-		    "question 2",
-		    "question 3"
-		  ]
-		},
-		{
-			"id":3,
-		  "description": "",
-		  "title": "Where you live matters.",
-		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/570e8e0c356fb0af9cde3faf/1460571675358/?format=1000w",
-		  "tags": [
-		    "policeKillings",
-		    "location",
-				"cities"
-		  ],
-		  "questions" : [
-		    "question 4",
-		    "question 5"
-		  ]
-		},
-		{
-			"id":4,
-		  "description": "",
-		  "title": "Where you live matters.",
-		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/570e8e0c356fb0af9cde3faf/1460571675358/?format=1000w",
-		  "tags": [
-		    "policeKillings",
-		    "location",
-				"cities"
-		  ],
-		  "questions" : [
-		    "question 4",
-		    "question 5"
-		  ]
-		},
-		{
-			"id":5,
-		  "description": "",
-		  "title": "Where you live matters.",
-		  "imgUrl": "http://static1.squarespace.com/static/54ecf211e4b0ed744420c5b6/t/570e8e0c356fb0af9cde3faf/1460571675358/?format=1000w",
-		  "tags": [
-		    "policeKillings",
-		    "location",
-				"cities"
-		  ],
-		  "questions" : [
-		    "question 4",
-		    "question 5"
-		  ]
-		}
-	]
-};
 
 function filterByTag(tagName)
 {
@@ -97,14 +17,13 @@ function filterByTag(tagName)
 //NEED TO FIX THE FONT
 var isOpen = 0;
 var widgetCreate = 0;
-widgetOnLoad();
 var widgetContainer;
+
+widgetOnLoad();
 
 function widgetOnLoad()
 {
 	makeAjaxRequest();
-
-
 }
 
 function makeAjaxRequest()
@@ -202,35 +121,26 @@ function addWidgetMainContents()
 	widgetMainBarContainer.attr('class','widget-main-bar-container');
 	$(".widget-container-class").append(widgetMainBarContainer);
 
-	// var widgetHeading = $("<div/>");
-	// widgetHeading.attr('class','widget-heading');
-	// $(".widget-main-bar-container").append(widgetHeading);
-	// $('.widget-heading').html('MAPPING POLICE VIOLENCE');
+	var widgetSearchContainer = $('<div>');
+	widgetSearchContainer.attr('class', 'widget-search-container');
+	$(widgetMainBarContainer).append(widgetSearchContainer);
 
-	//2 tabs
-	window.console.log('create the tabs');
-	var widgetTabId = ['widget-all-tag','widget-about-tag'];
-	var widgetTabHeadings = ['STATS','ABOUT'];
+	var widgetSearchText = $('<div>');
+	widgetSearchText.attr('class','widget-search-text-show');
+	$(widgetSearchContainer).append(widgetSearchText);
 
-	for(var i=0;i<2;i++)
-	{
-		var widgetTab = $("<div/>");
-		widgetTab.attr('class','widget-tabs');
-		widgetTab.attr('id',widgetTabId[i]);
-		$(widgetMainBarContainer).append(widgetTab);
-
-		var tempId = '#'  + widgetTabId[i];
-		$(tempId).html(widgetTabHeadings[i]);
-
-	}
-	$('#widget-all-tag').addClass('tab-selected');
+	widgetSearchText.click(function(){
+		window.console.log('clicked clicked');
+		$('.widget-search-box').toggleClass('full-width-text-box');
+		}
+	)
 
 	//add the widget search box
 	window.console.log('create the search box');
 	var widgetSearchBox = $("<input/>");
 	widgetSearchBox.attr('class','widget-search-box');
-	widgetSearchBox.attr('placeholder','Search topics or tags...');
-	$(widgetMainBarContainer).append(widgetSearchBox);
+	widgetSearchBox.attr('placeholder','SEARCH TOPICS OR TAGS...');
+	$(widgetSearchContainer).append(widgetSearchBox);
 
 	$( widgetSearchBox ).keyup( function(){
 		var filter =  $(this).val();
@@ -245,14 +155,14 @@ function addWidgetMainContents()
 		});
 	});
 
-	var widgetCoverContainer = $('<div>');
-	widgetCoverContainer.attr('class','widget-cover-container');
-	// widgetCoverContainer.attr('data-image-src',chrome.extension.getURL('assets/cover3.jpg'));
-
-	widgetCoverContainer.css('background-image','url(\"'+chrome.extension.getURL('assets/cover3.jpg')+'\")' );
-	widgetCoverContainer.html('WE CAN </br> END POLICE </br> VIOLENCE </br> IN </br>AMERICA.');
+	// var widgetCoverContainer = $('<div>');
+	// widgetCoverContainer.attr('class','widget-cover-container');
+	// // widgetCoverContainer.attr('data-image-src',chrome.extension.getURL('assets/cover3.jpg'));
 	//
-	$(widgetMainBarContainer).append(widgetCoverContainer);
+	// widgetCoverContainer.css('background-image','url(\"'+chrome.extension.getURL('assets/cover3.jpg')+'\")' );
+	// widgetCoverContainer.html('WE CAN </br> END POLICE </br> VIOLENCE </br> IN </br>AMERICA.');
+	// //
+	// $(widgetMainBarContainer).append(widgetCoverContainer);
 
 }
 
@@ -288,20 +198,23 @@ function loadStartJSONContent()
 {
 
 	window.console.log('loading the json file');
-	//console.log(JSONData);
-
-	// var widgetBanner = $("<div/>");
-	// widgetBanner.attr('class','widget-banner');
-	// $(".widget-main-bar-container").append(widgetBanner);
-	// $('.widget-banner').html(JSONData.banner);
 
 	var allPostsContainer = $("<section/>");
 	allPostsContainer.attr('class','all-posts-container');
 	$(".widget-container-class").append(allPostsContainer);
 
+	var widgetCoverContainer = $('<div>');
+	widgetCoverContainer.attr('class','widget-cover-container');
+	// widgetCoverContainer.attr('data-image-src',chrome.extension.getURL('assets/cover3.jpg'));
+
+	widgetCoverContainer.css('background-image','url(\"'+chrome.extension.getURL('assets/cover3.jpg')+'\")' );
+	widgetCoverContainer.html('WE CAN </br> END POLICE </br> VIOLENCE </br> IN </br>AMERICA.');
+	//
+	$(allPostsContainer).append(widgetCoverContainer);
+
 	var postContainerHeading = $("<div/>");
 	postContainerHeading.attr('class','post-container-heading');
-	postContainerHeading.html('NEWEST STATS');
+	postContainerHeading.html('<br><span style="font-weight:700">Newest Reseach from Campaign Zero</span> <br> Read the research studies, articles, and other documents on this feed to learn more about the historical context, effectiveness, and key considerations for implementing Campaign Zero policy solutions. Share them on Twitter. Contact us to propose documents to be added to this page.<br>');
 	$(allPostsContainer).append(postContainerHeading);
 
 	window.console.log(JSONApiData);
@@ -340,13 +253,17 @@ function loadStartJSONContent()
 			var tagBasedClassName = 'post-container-'+JSONApiData[i].tags[j].name;
 			$(postContainerReferId).addClass(tagBasedClassName);
 
-
 		}
 
 		var postImage = $("<img/>");
 		postImage.attr('class','post-image');
 		$(postContainerReferId).append(postImage);
-		postImage.attr('src','http://mpv-admin.herokuapp.com/'+JSONApiData[i].image.url);
+		postImage.attr('src','https://mpv-admin.herokuapp.com/'+JSONApiData[i].image.url);
+
+		var postShortcode = $("<h4/>");
+		postShortcode.attr('class','post-shortcode');
+		$(postContainerReferId).append(postShortcode);
+		postShortcode.html(JSONApiData[i].shortcode);
 
 		createTweet(JSONApiData[i],postContainerReferId);
 
@@ -354,21 +271,8 @@ function loadStartJSONContent()
 		postEnd.attr('class','widget-line-divide');
 		$(postContainerReferId).append(postEnd);
 
-
-
-
 	}
 
-	var aboutContainer = $("<section/>");
-	aboutContainer.attr('class','about-container');
-	$(".widget-container-class").append(aboutContainer);
-	var aboutContent = $('<div>');
-	aboutContent.attr('class','about-content');
-	aboutContainer.append(aboutContent);
-	aboutContent.html('Lorem ipsum..');
-
-
-	window.console.log('loaded the json file');
 }
 
 /*********************************************************
@@ -384,31 +288,39 @@ function test()
 function createTweet(data, postContainer)
 {
 
+	var tweetDiv = $('<div>');
+	tweetDiv.attr('class','custom-tweet-button');
+	$(postContainer).append(tweetDiv);
+
 	var tweetContainer = $('<a>');
 	var tags = [];
-	var url = "https://mpv-admin.herokuapp.com/posts/" + data.id;
-	tweetContainer.attr('href','https://twitter.com/share');
-	tweetContainer.attr('class','twitter-share-button');
-	// tweetContainer.addClass('post-tweet-button');
-	tweetContainer.attr('data-text',data.title);
-	for(var i =0;i<data.tags.length;i++){
-		tags.push(data.tags[i].name);
-	}
-	tweetContainer.attr('data-hashtags',tags.toString());
-	tweetContainer.html('');
-	tweetContainer.attr('data-url',url);
-	$(postContainer).append(tweetContainer);
 
+	//add the tags
+	for(var i =0;i<data.tags.length;i++){
+		tags.push('%23'+data.tags[i].name);
+	}
+	tags = tags.toString();
+	// tags = tags.replace(/#/g,'%23');
+
+	//add the postUrl
+	var postUrl = "https://mpv-admin.herokuapp.com/posts/" + data.id;
+
+	//add the title
+	var title = data.title;
+	title = title.replace(/\s+/g, '%20')
+
+	tweetContainer.attr('href','http://twitter.com/share?url=' + postUrl + '&text=' + tags);
+
+	$(tweetDiv).append(tweetContainer);
 
 }
 
-!function(d,s,id){
-	var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-	if(!d.getElementById(id))
-	{
-		js=d.createElement(s);
-		js.id=id;
-		js.src=p+'://platform.twitter.com/widgets.js';
-		fjs.parentNode.insertBefore(js,fjs);
-	}
-}(document, 'script', 'twitter-wjs');
+! function(d, s, id) {
+		 var js, fjs = d.getElementsByTagName(s)[0];
+		 if (!d.getElementById(id)) {
+				 js = d.createElement(s);
+				 js.id = id;
+				 js.src = "https://platform.twitter.com/widgets.js";
+				 fjs.parentNode.insertBefore(js, fjs);
+		 }
+ }(document, "script", "twitter-wjs");

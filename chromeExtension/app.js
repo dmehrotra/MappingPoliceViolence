@@ -121,30 +121,26 @@ function addWidgetMainContents()
 	widgetMainBarContainer.attr('class','widget-main-bar-container');
 	$(".widget-container-class").append(widgetMainBarContainer);
 
-	//2 tabs
-	window.console.log('create the tabs');
-	var widgetTabId = ['widget-all-tag','widget-about-tag'];
-	var widgetTabHeadings = ['STATS','ABOUT'];
+	var widgetSearchContainer = $('<div>');
+	widgetSearchContainer.attr('class', 'widget-search-container');
+	$(widgetMainBarContainer).append(widgetSearchContainer);
 
-	for(var i=0;i<2;i++)
-	{
-		var widgetTab = $("<div/>");
-		widgetTab.attr('class','widget-tabs');
-		widgetTab.attr('id',widgetTabId[i]);
-		$(widgetMainBarContainer).append(widgetTab);
+	var widgetSearchText = $('<div>');
+	widgetSearchText.attr('class','widget-search-text-show');
+	$(widgetSearchContainer).append(widgetSearchText);
 
-		var tempId = '#'  + widgetTabId[i];
-		$(tempId).html(widgetTabHeadings[i]);
-
-	}
-	$('#widget-all-tag').addClass('tab-selected');
+	widgetSearchText.click(function(){
+		window.console.log('clicked clicked');
+		$('.widget-search-box').toggleClass('full-width-text-box');
+		}
+	)
 
 	//add the widget search box
 	window.console.log('create the search box');
 	var widgetSearchBox = $("<input/>");
 	widgetSearchBox.attr('class','widget-search-box');
-	widgetSearchBox.attr('placeholder','Search topics or tags...');
-	$(widgetMainBarContainer).append(widgetSearchBox);
+	widgetSearchBox.attr('placeholder','SEARCH TOPICS OR TAGS...');
+	$(widgetSearchContainer).append(widgetSearchBox);
 
 	$( widgetSearchBox ).keyup( function(){
 		var filter =  $(this).val();
@@ -202,12 +198,6 @@ function loadStartJSONContent()
 {
 
 	window.console.log('loading the json file');
-	//console.log(JSONData);
-
-	// var widgetBanner = $("<div/>");
-	// widgetBanner.attr('class','widget-banner');
-	// $(".widget-main-bar-container").append(widgetBanner);
-	// $('.widget-banner').html(JSONData.banner);
 
 	var allPostsContainer = $("<section/>");
 	allPostsContainer.attr('class','all-posts-container');
@@ -215,7 +205,7 @@ function loadStartJSONContent()
 
 	var postContainerHeading = $("<div/>");
 	postContainerHeading.attr('class','post-container-heading');
-	postContainerHeading.html('NEWEST STATS');
+	postContainerHeading.html('Newest Reseach from Campaign Zero');
 	$(allPostsContainer).append(postContainerHeading);
 
 	window.console.log(JSONApiData);
@@ -270,15 +260,6 @@ function loadStartJSONContent()
 
 	}
 
-	var aboutContainer = $("<section/>");
-	aboutContainer.attr('class','about-container');
-	$(".widget-container-class").append(aboutContainer);
-	var aboutContent = $('<div>');
-	aboutContent.attr('class','about-content');
-	aboutContainer.append(aboutContent);
-	aboutContent.html('Lorem ipsum..');
-	window.console.log('loaded the json file');
-
 }
 
 /*********************************************************
@@ -297,7 +278,7 @@ function createTweet(data, postContainer)
 	var tweetDiv = $('<div>');
 	tweetDiv.attr('class','custom-tweet-button');
 	$(postContainer).append(tweetDiv);
- // 	tweetDiv.css('background-image','url(\"'+chrome.extension.getURL('assets/tweetButton.png')+'\") 50px center' );
+
 	var tweetContainer = $('<a>');
 	var tags = [];
 
@@ -315,8 +296,7 @@ function createTweet(data, postContainer)
 	var title = data.title;
 	title = title.replace(/\s+/g, '%20')
 
-	window.console.log('http://twitter.com/share?url=' + postUrl + '&text=' + title + ' ' + tags);
-	tweetContainer.attr('href','http://twitter.com/share?url=' + postUrl + '&text=' + title + ' ' + tags);
+	tweetContainer.attr('href','http://twitter.com/share?url=' + postUrl + '&text=' + tags);
 
 	$(tweetDiv).append(tweetContainer);
 

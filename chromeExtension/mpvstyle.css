@@ -32,14 +32,50 @@ div
   text-align: center;
   font-size: 1.8em;
 }
+
+.widget-search-text-show
+{
+  display: inline-block;
+  position: fixed;
+  background: url('assets/search.png') center no-repeat;
+  background-size: cover;
+  height: 1.6em;
+  width: 1.6em;
+  margin: 0.4em 5px;
+}
+
+.widget-search-container
+{
+  background: #000000;
+}
+
 .widget-search-box
 {
-  display:block;
-  font-weight: 400;
-  width: 100%;
+  font-weight: 700;
+  color: #ffffff; !important
+  width: 0%;
   margin: 0 auto;
   font-size: 1em;
+  line-height: 2em;
+  margin-left: 40px;
+  border: 0px;
+  background: #000000;
+
 }
+
+.widget-search-box:focus
+{
+  font-weight: 700;
+  color: #ffffff; !important
+
+}
+
+.full-width-text-box
+{
+  width: 80%;
+  transition: width .8s cubic-bezier(0.000, 0.795, 0.000, 1.000);
+}
+
 .widget-tabs
 {
   display:inline-block;
@@ -106,6 +142,7 @@ div
   width: 100%;
   padding: 2% 0;
   text-align: center;
+  font-weight: 700;
   border-bottom: 1px solid #2c2c2c;
   border-top: 1px solid #2c2c2c;
 }
@@ -153,20 +190,16 @@ div
   font-weight: 400;
 }
 
-.about-container {
-  display: none;
-}
-
 /*******************
 CHANGING THE AUTOCOMPLETE
 *******************/
-.btn {
-  background-color: #43fe32;
-}
 
 .custom-tweet-button a {
-  display: inline-block;
-  padding: 20px 5px 2px 20px;
+  display: block;
+  height: 40px;
+  width: 40px;
+  float: right;
+  margin: 5%;
   background: url('assets/tweetButton.png') center no-repeat;
   background-size: cover;
   /*border: 1px solid #fff;*/

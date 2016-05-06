@@ -30,10 +30,12 @@ $('.tweet-box.rich-editor').keyup(function() {
   var that = this;
 	window.console.log( that.innerHTML );
 
-  var matchingTag = findMatchingWords($(that).text(),'#mpv');
-  var postTag = matchingTag[0];
-  window.console.log(matchingTag,postTag,postTags);
+  var matchingTag = findMatchingWords($(that).text(),'mpv');
+	window.console.log($(that).text(),postTags);
+	var postTag = matchingTag;
+  window.console.log(matchingTag,postTag);
   var postNumber = $.inArray(postTag,postTags);
+	window.console.log('the post is -- ' +postNumber);
   if(postNumber>-1)
   {
     insertPost(postNumber,'.tweet-box.rich-editor');
@@ -43,8 +45,15 @@ $('.tweet-box.rich-editor').keyup(function() {
 });
 
 function findMatchingWords(t, s) {
-    var re = new RegExp(s+"\\w*", "g");
-    return t.match(re);
+    // var re = new RegExp(s+"\\w*", "g");(\$\w+)
+		var re =  /(\$\$\w+)/;
+    var m;
+		if ((m = re.exec(t)) !== null) {
+    if (m.index === re.lastIndex) {
+        re.lastIndex++;
+    }
+	}
+	return (m[0]);
 }
 
 function insertPost(postNumber,container)

@@ -1,28 +1,7 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This project started is a tool for users to more quickly drop infographics from Campaign Zero/Mapping police violence into your Tweet field to rebuff trolls. 
 
-Things you may want to cover:
+It has two parts to it - a chrome extension that hosts best infographic work, ready for easy Twitter sharing. It can be used as a public-facing WeTheProtesters feed.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+There is a backen CMS build in rails from where the data and infographics can be added.

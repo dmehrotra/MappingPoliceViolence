@@ -3,5 +3,7 @@
 This project started is a tool for users to more quickly drop infographics from Campaign Zero/Mapping police violence into any Tweet field to rebuff trolls and share information. 
 
 It has two parts to it: 
-1. a chrome extension that hosts best infographic work, ready for easy Twitter sharing It can be used as a public-facing WeTheProtesters feed.
-2. A backend with a custom CMS built in rails  where the data and new infographics can be added.
+1.  A backend with a custom CMS built in rails where the data and new infographics can be added edited and deleted.
+
+2. a chrome extension that pulls inforgraphics from the CMS for easy Twitter sharing -with shortcodes -. It can be used as a public-facing WeTheProtesters feed.
+

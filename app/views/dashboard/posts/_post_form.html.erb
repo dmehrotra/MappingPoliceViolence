@@ -79,12 +79,18 @@ $(document).ready(function(){
             processData: false,
             type: 'POST',
             success: function(result) {
-                $("#alert-modal .modal-title").html("Thanks")
-                $("#alert-modal .modal-body").html("<a href ='/dashboard/posts'>See all posts here</a>")
+                if (result.errors != undefined){
+                     $("#alert-modal .modal-title").html("Error")
+                     $("#alert-modal .modal-body").html("Please review your post.")
+                }else{
+                     $("#alert-modal .modal-title").html("Thanks")
+                     $("#alert-modal .modal-body").html("<a href ='/dashboard/posts'>See all posts here</a>")
+                }   
+               
                 $("#alert-modal").modal()
                 $('form')[0].reset();
                 file = "";
-                debugger;
+                
                 $('#preview').attr('src',"");
             }
         });

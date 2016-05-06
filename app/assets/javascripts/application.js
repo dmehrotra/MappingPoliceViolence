@@ -18,3 +18,12 @@
 //= require_tree ./vendor
 
 //= require_tree .
+$(document).ready(function(){
+	if ($('.notice').html() != "" || $('.alert').html() != ''){
+		html = $('.alert').html() + " " + $('.notice').html() 
+		$("#alert-modal .modal-title").html("Alert")
+        
+        $("#alert-modal .modal-body").html(html)
+        $("#alert-modal").modal()
+	}
+})

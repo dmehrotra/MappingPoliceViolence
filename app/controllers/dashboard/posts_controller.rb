@@ -15,7 +15,7 @@ module Dashboard
 				@post.assign_shortcode
 				redirect_to dashboard_posts_path
 			else
-				redirect_to new_dashboard_post_path
+				render :json => {errors: @post.errors.full_messages}	
 			end
 		end
 		def edit

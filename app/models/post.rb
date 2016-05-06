@@ -7,11 +7,11 @@ class Post < ActiveRecord::Base
 
 	def assign_shortcode
 		if !self.shortcode.present?
-			self.shortcode = "#mpv"+self.id.to_s
+			self.shortcode = "$$MPV"+self.id.to_s
 			self.save
 		else
-			if self.shortcode[0] != '#'
-				self.shortcode.prepend("#")
+			if self.shortcode[0] != '$' && self.shortcode[1] != '$'
+				self.shortcode.prepend("$$")
 				self.save
 			end
 		end

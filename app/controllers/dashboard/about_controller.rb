@@ -18,7 +18,7 @@ module Dashboard
             if @about.update(about_params)
                 redirect_to "/dashboard/about"
             else
-                redirect_to "/dashboard/about"
+                redirect_to "/dashboard/about", alert: "There was an error with your form"
             end
 
 

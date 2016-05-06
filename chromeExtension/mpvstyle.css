@@ -140,29 +140,34 @@ div
 .post-tags
 {
   display: inline;
-  color: #bbbbbb;
+  color: #888888;
+  font-weight: 300;
   margin-right: 5px;
-  font-size: 0.75em;
+  font-size: 1.1em;
+  line-height: 2.5em;
 }
 .post-tags:hover
 {
   cursor: pointer;
-  color: #888888;
-}
-
-/*******************
-MESSING AROUND FOR THE AUTOCOMPLETE
-*******************/
-.ui-autocomplete{
-  z-index: 1001;
-}
-
-.ui-state-focus {
-  color: #f25a5a;
-  background: #aaaaaa;
-  border: none;
+  color: #444444;
+  font-weight: 400;
 }
 
 .about-container {
   display: none;
+}
+
+/*******************
+CHANGING THE AUTOCOMPLETE
+*******************/
+.btn {
+  background-color: #43fe32;
+}
+
+.custom-tweet-button a {
+  display: inline-block;
+  padding: 20px 5px 2px 20px;
+  background: url('assets/tweetButton.png') center no-repeat;
+  background-size: cover;
+  /*border: 1px solid #fff;*/
 }

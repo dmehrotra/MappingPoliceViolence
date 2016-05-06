@@ -20,5 +20,5 @@
     "default_icon": "favicon.ico"
   },
   "manifest_version": 2,
-  "web_accessible_resources": ["mpvstyle.css","test.json","assets/cover1.jpg","assets/cover2.jpg","assets/cover3.jpg"]
+  "web_accessible_resources": ["mpvstyle.css","test.json","assets/cover1.jpg","assets/cover2.jpg","assets/cover3.jpg","assets/tweetButton.png"]
 }

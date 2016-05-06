@@ -155,14 +155,14 @@ function addWidgetMainContents()
 		});
 	});
 
-	var widgetCoverContainer = $('<div>');
-	widgetCoverContainer.attr('class','widget-cover-container');
-	// widgetCoverContainer.attr('data-image-src',chrome.extension.getURL('assets/cover3.jpg'));
-
-	widgetCoverContainer.css('background-image','url(\"'+chrome.extension.getURL('assets/cover3.jpg')+'\")' );
-	widgetCoverContainer.html('WE CAN </br> END POLICE </br> VIOLENCE </br> IN </br>AMERICA.');
+	// var widgetCoverContainer = $('<div>');
+	// widgetCoverContainer.attr('class','widget-cover-container');
+	// // widgetCoverContainer.attr('data-image-src',chrome.extension.getURL('assets/cover3.jpg'));
 	//
-	$(widgetMainBarContainer).append(widgetCoverContainer);
+	// widgetCoverContainer.css('background-image','url(\"'+chrome.extension.getURL('assets/cover3.jpg')+'\")' );
+	// widgetCoverContainer.html('WE CAN </br> END POLICE </br> VIOLENCE </br> IN </br>AMERICA.');
+	// //
+	// $(widgetMainBarContainer).append(widgetCoverContainer);
 
 }
 
@@ -203,9 +203,18 @@ function loadStartJSONContent()
 	allPostsContainer.attr('class','all-posts-container');
 	$(".widget-container-class").append(allPostsContainer);
 
+	var widgetCoverContainer = $('<div>');
+	widgetCoverContainer.attr('class','widget-cover-container');
+	// widgetCoverContainer.attr('data-image-src',chrome.extension.getURL('assets/cover3.jpg'));
+
+	widgetCoverContainer.css('background-image','url(\"'+chrome.extension.getURL('assets/cover3.jpg')+'\")' );
+	widgetCoverContainer.html('WE CAN </br> END POLICE </br> VIOLENCE </br> IN </br>AMERICA.');
+	//
+	$(allPostsContainer).append(widgetCoverContainer);
+
 	var postContainerHeading = $("<div/>");
 	postContainerHeading.attr('class','post-container-heading');
-	postContainerHeading.html('Newest Reseach from Campaign Zero');
+	postContainerHeading.html('<br><span style="font-weight:700">Newest Reseach from Campaign Zero</span> <br> Read the research studies, articles, and other documents on this feed to learn more about the historical context, effectiveness, and key considerations for implementing Campaign Zero policy solutions. Share them on Twitter. Contact us to propose documents to be added to this page.<br>');
 	$(allPostsContainer).append(postContainerHeading);
 
 	window.console.log(JSONApiData);
@@ -244,13 +253,17 @@ function loadStartJSONContent()
 			var tagBasedClassName = 'post-container-'+JSONApiData[i].tags[j].name;
 			$(postContainerReferId).addClass(tagBasedClassName);
 
-
 		}
 
 		var postImage = $("<img/>");
 		postImage.attr('class','post-image');
 		$(postContainerReferId).append(postImage);
 		postImage.attr('src','https://mpv-admin.herokuapp.com/'+JSONApiData[i].image.url);
+
+		var postShortcode = $("<h4/>");
+		postShortcode.attr('class','post-shortcode');
+		$(postContainerReferId).append(postShortcode);
+		postShortcode.html(JSONApiData[i].shortcode);
 
 		createTweet(JSONApiData[i],postContainerReferId);
 

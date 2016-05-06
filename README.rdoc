@@ -1,6 +1,6 @@
 == Mapping Police Violence
 
-This project started is a tool for users to more quickly drop infographics from Campaign Zero/Mapping police violence into any Tweet field to rebuff trolls and share information. 
+This is a tool for Campaign Zero/MappingPoliceViolence to share infographics via twitter in order to rebuff trolls and share information. Any user can also download this chrome extension and easily share campaign zero infographics. 
 
 It has two parts to it: 
 1.  A backend with a custom CMS built in rails where the data and new infographics can be added edited and deleted.
